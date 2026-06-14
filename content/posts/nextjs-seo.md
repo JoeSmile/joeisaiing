@@ -4,7 +4,7 @@ date: 2026-06-08T14:00:00+08:00
 slug: "nextjs-seo"
 url: "/nextjs-seo.html"
 categories:
-  - "AI 工程"
+  - "前端 & Next.js"
 tags:
   - "Next.js"
   - "SEO"

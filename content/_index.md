@@ -14,7 +14,7 @@ title: ""
     <span class="topic-name">AI 工程</span>
     <span class="topic-desc">Agent、RAG、Memory、工具链与评测</span>
   </a>
-  <a class="topic-card topic-fe" href="/tags/next.js/">
+  <a class="topic-card topic-fe" href="/categories/前端--next.js/">
     <span class="topic-icon">⚡</span>
     <span class="topic-name">前端 & Next.js</span>
     <span class="topic-desc">App Router、SEO、Turbopack 与产品化</span>
@@ -23,11 +23,6 @@ title: ""
     <span class="topic-icon">🛠</span>
     <span class="topic-name">工程化</span>
     <span class="topic-desc">协作流程、规范、部署与可观测性</span>
-  </a>
-  <a class="topic-card topic-blog" href="/categories/博客/">
-    <span class="topic-icon">📝</span>
-    <span class="topic-name">站点 & 工具</span>
-    <span class="topic-desc">Hugo、博客维护与开发环境</span>
   </a>
 </div>
 

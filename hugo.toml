@@ -45,15 +45,15 @@ avatar = "/images/avatar.jpeg"
 name = "SmileJoe"
 logo = "/images/avatar.jpeg"
 [params.header.subtitle]
-name = "AI Agent 全链路工程实践"
+name = ""
 typeit = false
 [params.home.profile]
 enable = true
 title = "SmileJoe"
-subtitle = "AI Agent 全链路工程实践"
+subtitle = ""
 typeit = false
 avatarURL = "/images/avatar.jpeg"
-social = true
+social = false
 [params.home.posts]
 enable = true
 paginate = 8
