@@ -192,9 +192,31 @@
     .content {
       color: var(--global-font-secondary-color);
       font-size: 0.95rem;
-      line-height: 1.7;
-      max-height: 4.8em;
+      line-height: 1.75;
+      min-height: 7.5em;
+      max-height: 20em;
       overflow: hidden;
+
+      // 摘要区常有与列表标题重复的 H1，缩小以免占满预览高度
+      h1 {
+        color: var(--global-font-color);
+        font-size: 1.05rem;
+        font-weight: 600;
+        line-height: 1.45;
+        margin: 0 0 0.6rem;
+      }
+
+      p {
+        margin: 0 0 0.5rem;
+      }
+
+      blockquote {
+        border-left: 3px solid var(--global-border-color);
+        font-size: 0.9rem;
+        line-height: 1.65;
+        margin: 0.65rem 0 0;
+        padding-left: 0.85rem;
+      }
     }
   }
 }

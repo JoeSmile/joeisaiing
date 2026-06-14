@@ -67,6 +67,8 @@ summaryPlainify = true
 copy = true
 [params.page.code.mermaid]
 enable = true
+[params.page.share]
+enable = false
 [params.mermaid]
 wrapper = true
 securityLevel = "loose"
