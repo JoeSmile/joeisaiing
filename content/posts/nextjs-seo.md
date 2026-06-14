@@ -1,6 +1,6 @@
 ---
 title: "Next.js 15 SEO 核心优化全解（AI 知识库项目实战向）"
-date: 2026-06-08T14:00:00+08:00
+date: 2026-05-30T14:00:00+08:00
 slug: "nextjs-seo"
 url: "/nextjs-seo.html"
 categories:
