@@ -4,8 +4,10 @@ date: 2019-08-22T17:00:00+08:00
 slug: "useful-tools-website"
 url: "/useful-tools-website.html"
 categories:
+  - "归档"
   - "tools"
 featuredImage: "/images/js.png"
+hiddenFromHomePage: true
 ---
 
 ### 知识精讲

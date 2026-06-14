@@ -1,9 +1,12 @@
 ---
 title: "hapi-confidence"
 date: 2019-09-16T10:46:51+08:00
+categories:
+  - "归档"
 slug: "hapi-confidence"
 url: "/hapi-confidence.html"
 featuredImage: "/images/covers/confidence_logo.png"
+hiddenFromHomePage: true
 ---
 
 > 记录一个confidence插件，简单明了地根据不同环境变量更换配置。平时我们写 config 或者 settings 文件要仔细区分环境，参数值比较混乱，难管理。有了 confidence 插件之后，再也不用担心环境参数混乱的问题了。

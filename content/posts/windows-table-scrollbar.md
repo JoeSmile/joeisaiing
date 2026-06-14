@@ -4,12 +4,14 @@ date: 2019-03-21T16:21:20+08:00
 slug: "windows-table-scrollbar"
 url: "/windows-table-scrollbar.html"
 categories:
+  - "归档"
   - "css"
 tags:
   - "windows"
   - "solutions"
   - "css-hack"
   - "css"
+hiddenFromHomePage: true
 ---
 
 这是一个很蛋疼的问题，在window下会出现table出现滚动条，且把table-content的内容挤歪了，，，和浏览器无关，这个和操作系统有关系。网上有一些解决方案。在此不一一列举，或者写死columns的宽度，或者把滚动条width设置为0。不同的场景，需要调整的样式不同，所以在此仅总结相关知识。

@@ -4,11 +4,13 @@ date: 2019-01-21T18:20:21+08:00
 slug: "mongoDB-sharing"
 url: "/mongoDB-sharing.html"
 categories:
+  - "归档"
   - "mongodb"
 tags:
   - "noSql"
   - "mongodb"
   - "sharing"
+hiddenFromHomePage: true
 ---
 
 记一次 sharing

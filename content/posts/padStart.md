@@ -4,10 +4,12 @@ date: 2019-01-01T00:00:00+08:00
 slug: "padStart"
 url: "/padStart.html"
 categories:
+  - "归档"
   - "javascript"
 tags:
   - "es6+"
   - "javascript"
+hiddenFromHomePage: true
 ---
 
 在ES8中，为String新增 padStart & padEnd， 用来填充字符串。

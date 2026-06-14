@@ -4,9 +4,11 @@ date: 2019-03-26T18:49:36+08:00
 slug: "newleaner"
 url: "/newleaner.html"
 categories:
+  - "归档"
   - "tools"
 tags:
   - "sharing"
+hiddenFromHomePage: true
 ---
 
 ～～～～～～～～～～  学习资料  ～～～～～～～～～～

@@ -4,6 +4,7 @@ date: 2019-08-21T14:45:45+08:00
 slug: "koa-helmet"
 url: "/koa-helmet.html"
 categories:
+  - "归档"
   - "node"
 tags:
   - "node"
@@ -13,6 +14,7 @@ tags:
   - "npm"
   - "solutions"
 featuredImage: "/images/covers/helmet-cover.jpg"
+hiddenFromHomePage: true
 ---
 
 Koa-helmet 确保 koa 安全最强中间件！

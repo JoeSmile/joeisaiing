@@ -4,6 +4,7 @@ date: 2018-11-09T17:23:18+08:00
 slug: "koa-static"
 url: "/koa-static.html"
 categories:
+  - "归档"
   - "node"
 tags:
   - "koa"
@@ -11,6 +12,7 @@ tags:
   - "middleware"
   - "npm"
   - "solutions"
+hiddenFromHomePage: true
 ---
 
 一直很想学后端技术，就是不知道如何提起兴趣，找到一个突破点。一日突然想从npm包和 koa 的中间件着手学习后端，看下后端同学思考和关心的点是什么。于是我就从npm包和中间件入手，来扒一扒后端的知识。Koa 是目前很火的 nodejs 框架，使用起来快捷方便。 如果懒的一点点窜架构，可以直接用  koa-generator脚手架很快就能搞到一个简易的框架。

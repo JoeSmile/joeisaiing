@@ -4,12 +4,14 @@ date: 2018-11-10T17:38:31+08:00
 slug: "koa-router"
 url: "/koa-router.html"
 categories:
+  - "归档"
   - "node"
 tags:
   - "koa"
   - "router"
   - "node"
   - "npm"
+hiddenFromHomePage: true
 ---
 
 后台服务器都绕不开路由， 所以koa-router这个中间件是一定要了解的了。Github 地址: https://github.com/alexmingoia/koa-router 以下栗子都来自官网。最后附有一些tips。

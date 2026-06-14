@@ -1,11 +1,14 @@
 ---
 title: "vue key有个坑"
 date: 2019-08-21T12:16:45+08:00
+categories:
+  - "归档"
 slug: "vue-key"
 url: "/vue-key.html"
 tags:
   - "vue"
   - "key"
+hiddenFromHomePage: true
 ---
 
 在vue2.x 中，我们经常使用key来提高组件性能，给了 input  或者 在 v-for 中 给子组件/元素一个 key 来加速diff渲染，这也是官方推荐的做法。不过 key 的赋值还真的不能马虎。

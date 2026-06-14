@@ -1,12 +1,15 @@
 ---
 title: "aem-test"
 date: 2019-08-21T19:16:40+08:00
+categories:
+  - "归档"
 slug: "aem-test"
 url: "/aem-test.html"
 tags:
   - "aem"
   - "test"
 featuredImage: "/images/covers/aem-test-cover.jpeg"
+hiddenFromHomePage: true
 ---
 
 ###### 记一次 aem test sharing。(AEM是一个庞大的，前后端未分离的，用java各种配置的框架。)  

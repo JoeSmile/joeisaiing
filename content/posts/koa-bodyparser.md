@@ -4,12 +4,14 @@ date: 2018-11-12T17:46:48+08:00
 slug: "koa-bodyparser"
 url: "/koa-bodyparser.html"
 categories:
+  - "归档"
   - "node"
 tags:
   - "koa"
   - "npm"
   - "middleware"
   - "node"
+hiddenFromHomePage: true
 ---
 
 > koa中必不可少中间件之一  

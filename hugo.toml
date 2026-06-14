@@ -32,9 +32,10 @@ lineNumbersInTable = true
 noClasses = false
 
 [params]
-description = "Joe 的技术博客 — Node.js、JavaScript 与前端工程实践"
+description = "Joe 的技术博客 — AI Agent应用全链路工程实践"
 dateFormat = "2006-01-02"
 summaryLength = 120
+disableThemeInject = true
 [params.author]
 name = "Joe"
 email = ""
@@ -44,12 +45,12 @@ avatar = "/images/avatar.jpeg"
 name = "SmileJoe"
 logo = "/images/avatar.jpeg"
 [params.header.subtitle]
-name = "Node.js · JavaScript · 前端工程"
+name = "AI Agent 全链路工程实践"
 typeit = false
 [params.home.profile]
 enable = true
 title = "SmileJoe"
-subtitle = "Node.js · JavaScript · 前端工程"
+subtitle = "AI Agent 全链路工程实践"
 typeit = false
 avatarURL = "/images/avatar.jpeg"
 social = true
@@ -84,11 +85,31 @@ distance = 1000
 [params.social.github]
 id = "JoeSmile"
 
+[params.app]
+title = "SmileJoe"
+svgFavicon = "/images/avatar.jpeg"
+iconColor = "#5bbad5"
+tileColor = "#252627"
+
+[params.footer.powered]
+enable = false
+
+[params.cookieconsent]
+enable = false
+
+[[menus.main]]
+identifier = "archive-legacy"
+name = "历史归档"
+url = "/categories/归档/"
+weight = 1
+[menus.main.params]
+icon = "fa-solid fa-box-archive"
+
 [[menus.main]]
 identifier = "archives"
-name = "归档"
+name = "全部文章"
 url = "/posts/"
-weight = 1
+weight = 2
 [menus.main.params]
 icon = "fa-solid fa-archive"
 
@@ -96,7 +117,7 @@ icon = "fa-solid fa-archive"
 identifier = "categories"
 name = "分类"
 url = "/categories/"
-weight = 2
+weight = 3
 [menus.main.params]
 icon = "fa-solid fa-folder-tree"
 
@@ -104,7 +125,7 @@ icon = "fa-solid fa-folder-tree"
 identifier = "tags"
 name = "标签"
 url = "/tags/"
-weight = 3
+weight = 4
 [menus.main.params]
 icon = "fa-solid fa-tags"
 
@@ -112,6 +133,6 @@ icon = "fa-solid fa-tags"
 identifier = "about"
 name = "关于"
 url = "/about/"
-weight = 4
+weight = 5
 [menus.main.params]
 icon = "fa-solid fa-user"

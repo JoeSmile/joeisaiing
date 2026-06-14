@@ -4,6 +4,7 @@ date: 2019-08-21T14:21:35+08:00
 slug: "koa-jwt"
 url: "/koa-jwt.html"
 categories:
+  - "归档"
   - "node"
 tags:
   - "koa"
@@ -13,6 +14,7 @@ tags:
   - "npm"
   - "solutions"
 featuredImage: "/images/covers/jwt-cover.png"
+hiddenFromHomePage: true
 ---
 
 学习 Koa 不易，今天学习到了 koa-jwt 这个登陆验证必不可少的中间件。本文会说明 jwt是什么、token怎么来的、如何验证token。

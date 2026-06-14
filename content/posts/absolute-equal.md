@@ -4,9 +4,11 @@ date: 2019-01-07T17:59:47+08:00
 slug: "absolute-equal"
 url: "/absolute-equal.html"
 categories:
+  - "归档"
   - "javascript"
 tags:
   - "面试题"
+hiddenFromHomePage: true
 ---
 
 经典面试题，问起来这两者区别，更多的时候听到的回答是 === 是会比较类型， == 不会。不过进一步问 1 == [1]  返回 true  这是为什么呢？ 很多面试者就不知道怎么回答了。跟着问题，我们进一步了解下 == 和 === 的机制。 

@@ -4,12 +4,14 @@ date: 2019-08-21T11:40:46+08:00
 slug: "nodepdf"
 url: "/nodepdf.html"
 categories:
+  - "归档"
   - "node"
 tags:
   - "solutions"
   - "pdf"
   - "node"
   - "npm"
+hiddenFromHomePage: true
 ---
 
 当当当，今天分享下如何生成pfd一个高效的解决方案。在管理系统中，我们需要将页面的内容打印 PDF 和 excel。HTML 打印 PDF 有很多方法，比如先将页面转换成canvas，然后打印canvas等。今天我们介绍2个 npm包，来帮助我们打印出来我们想要的PDF。其实打印pdf这个事儿主要工作在后端，众所周知前端能够做的东西有限，有限，，，

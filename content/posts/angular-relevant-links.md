@@ -1,8 +1,11 @@
 ---
 title: "angular_relevant_links"
 date: 2019-09-10T10:10:33+08:00
+categories:
+  - "归档"
 slug: "angular-relevant-links"
 url: "/angular-relevant-links.html"
+hiddenFromHomePage: true
 ---
 
 **Angular CI commands**

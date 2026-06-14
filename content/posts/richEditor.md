@@ -4,6 +4,7 @@ date: 2019-08-21T12:27:10+08:00
 slug: "richEditor"
 url: "/richEditor.html"
 categories:
+  - "归档"
   - "javascript"
 tags:
   - "编辑器"
@@ -11,6 +12,7 @@ tags:
   - "富文本编辑器"
   - "npm"
 featuredImage: "/images/covers/xiaoxin.jpg"
+hiddenFromHomePage: true
 ---
 
 今天我们来介绍5个前端富文本编辑器
