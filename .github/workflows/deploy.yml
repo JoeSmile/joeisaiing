@@ -37,3 +37,7 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./public
           commit_message: "deploy: ${{ github.event.head_commit.message }}"
+          # 默认会删掉 publish_dir 里没有的文件；目标仓里的 CNAME（自定义域名）会被清掉
+          keep_files: true
+          # 若绑定了自定义域名，取消下一行注释并改成你的域名（或在 static/CNAME 里写同一域名）
+          # cname: www.example.com
