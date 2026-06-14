@@ -11,7 +11,7 @@ enableRobotsTXT = true
 enableEmoji = true
 
 [outputs]
-home = ["HTML", "RSS", "JSON"]
+home = ["HTML", "RSS", "search"]
 
 [permalinks.page]
 posts = "/:slug.html"
@@ -32,24 +32,36 @@ lineNumbersInTable = true
 noClasses = false
 
 [params]
-description = "Joe 的技术博客"
+description = "Joe 的技术博客 — Node.js、JavaScript 与前端工程实践"
 dateFormat = "2006-01-02"
+summaryLength = 120
 [params.author]
 name = "Joe"
 email = ""
 link = "https://github.com/JoeSmile"
+avatar = "/images/avatar.jpeg"
 [params.header.title]
 name = "SmileJoe"
 logo = "/images/avatar.jpeg"
+[params.header.subtitle]
+name = "Node.js · JavaScript · 前端工程"
+typeit = false
 [params.home.profile]
 enable = true
 title = "SmileJoe"
-subtitle = "To be or not to be"
+subtitle = "Node.js · JavaScript · 前端工程"
+typeit = false
+avatarURL = "/images/avatar.jpeg"
+social = true
 [params.home.posts]
 enable = true
+paginate = 8
 [params.page]
+_merge = "shallow"
 hiddenFromHomePage = false
 hiddenFromSearch = false
+capitalizeTitles = false
+summaryPlainify = true
 [params.page.code]
 copy = true
 [params.page.code.mermaid]
@@ -60,6 +72,14 @@ securityLevel = "loose"
 [params.search]
 enable = true
 type = "fuse"
+placeholder = "搜索文章标题或内容…"
+[params.search.fuse]
+isCaseSensitive = false
+minMatchCharLength = 1
+findAllMatches = true
+ignoreLocation = true
+threshold = 0.4
+distance = 1000
 [params.social]
 [params.social.github]
 id = "JoeSmile"
@@ -67,7 +87,7 @@ id = "JoeSmile"
 [[menus.main]]
 identifier = "archives"
 name = "归档"
-url = "/archives/"
+url = "/posts/"
 weight = 1
 [menus.main.params]
 icon = "fa-solid fa-archive"

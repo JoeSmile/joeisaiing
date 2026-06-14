@@ -1,0 +1,113 @@
+// ==============================
+// Custom style
+// ==============================
+
+.home-directory {
+  margin: 1.5rem auto 2.5rem;
+  max-width: 960px;
+}
+
+.home-intro {
+  color: var(--global-font-secondary-color);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin: 0 0 1.75rem;
+  text-align: center;
+}
+
+.home-section-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.category-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.category-card {
+  background: var(--card-background);
+  border: 1px solid var(--global-border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.1rem 1.2rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--global-link-hover-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+.category-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.category-name {
+  color: var(--global-font-color);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.category-desc {
+  color: var(--global-font-secondary-color);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.page.home.posts {
+  .single.summary {
+    border: 1px solid var(--global-border-color);
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    padding: 1.25rem 1.5rem;
+
+    .featured-image-preview {
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .content {
+      color: var(--global-font-secondary-color);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-height: 4.8em;
+      overflow: hidden;
+    }
+  }
+}
+
+.home-profile {
+  margin-bottom: 0.5rem;
+
+  .home-avatar img {
+    border: 3px solid var(--global-border-color);
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .home-title {
+    margin-top: 0.75rem;
+  }
+
+  .home-subtitle {
+    color: var(--global-font-secondary-color);
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}

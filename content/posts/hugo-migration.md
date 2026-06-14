@@ -6,6 +6,7 @@ url: "/hugo-migration.html"
 categories: ["博客"]
 tags: ["Hugo", "Mermaid"]
 draft: false
+hiddenFromHomePage: true
 ---
 
 本站已从 Hexo 迁移至 Hugo + FixIt 主题，支持 Mermaid 图表。
