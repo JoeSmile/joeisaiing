@@ -1,6 +1,6 @@
 baseURL = "https://joesmile.github.io/"
 theme = "FixIt"
-title = "SmileJoe"
+title = "JoeSmile"
 defaultContentLanguage = "zh-cn"
 [languages.zh-cn]
 locale = "zh-CN"
@@ -42,14 +42,14 @@ email = ""
 link = "https://github.com/JoeSmile"
 avatar = "/images/avatar.jpeg"
 [params.header.title]
-name = "SmileJoe"
+name = "JoeSmile"
 logo = "/images/avatar.jpeg"
 [params.header.subtitle]
 name = ""
 typeit = false
 [params.home.profile]
 enable = true
-title = "SmileJoe"
+title = "JoeSmile"
 subtitle = ""
 typeit = false
 avatarURL = "/images/avatar.jpeg"
@@ -86,7 +86,7 @@ distance = 1000
 id = "JoeSmile"
 
 [params.app]
-title = "SmileJoe"
+title = "JoeSmile"
 svgFavicon = "/images/avatar.jpeg"
 iconColor = "#5bbad5"
 tileColor = "#252627"
