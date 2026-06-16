@@ -106,19 +106,45 @@ BFF 层的 Guard 可以被绕过（直连 API），所以 **API 层必须是权�
 Prompt 分层示意（软防线，和 OWASP spotlighting 思路一致）——**以下为结构示例，非生产原文**：
 
 ```text
-[SystemMessage]
+[SystemMessage]  ← 每次调用 LLM 前临时组装一条（不是每条消息都套壳）
   <POLICY>
   （简短、固定的助手行为与边界；具体措辞按产品定制，此处不公开）
   </POLICY>
   <DOCS>
-  [1] …（经清洗后的检索正文）
+  [1] …（本轮 retrieve 到的、经清洗后的检索正文）
   </DOCS>
-  <TOOL_POLICY> （工具使用约束） </TOOL_POLICY>
+  <TOOL_POLICY>
+  （仅 Agent / ReAct 路径：时间语境、工具用法、检索是否足够等）
+  </TOOL_POLICY>
 
-[HumanMessage] 用户真实输入
+[HumanMessage] 用户真实输入（历史各轮同理）
+[AIMessage]    助手历史回复
+[ToolMessage]  工具返回（若有）
 ```
 
-常见踩坑：**把用户原文拼进 system 的专用区块**（例如 `<USER_QUERY>`）。角色边界一糊，覆盖指令的成功率会高很多。用户输入应只出现在用户角色消息里。
+**常见误解**：`<POLICY>` / `<DOCS>` / `<TOOL_POLICY>` **不是**给对话里每个 role 各包一层，而是 **拼进同一条 `SystemMessage` 的正文分区**。顺序 **POLICY → DOCS → TOOL_POLICY** 表示：先读固定规则，再看不可信资料，最后看工具策略。
+
+**每轮怎么用？** 用户每发一条新消息、图跑到「调用模型」节点时，通常会：
+
+1. 用 **本轮最后一条用户话** 做 retrieve，得到 **本轮** 的检索块；
+2. **重新拼** 一条 system（POLICY + 本轮 DOCS + 可选 TOOL_POLICY）；
+3. 再拼上 **整段对话历史**（多轮 Human / AI / Tool），一起发给 LLM。
+
+因此：
+
+| 内容 | 放在哪 | 是否每轮重建 |
+| :--- | :--- | :--- |
+| 永久规则 | `<POLICY>`（system 内） | 文案固定，随 system 每轮带上 |
+| 检索到的知识库正文 | `<DOCS>`（system 内） | **每轮按 retrieve 结果重建** |
+| 工具 / 时间语境 | `<TOOL_POLICY>`（system 内） | ReAct 时每轮带上 |
+| 用户当前与历史问题 | `HumanMessage` | 历史原样保留，**不**塞进 system |
+
+**和「入库 chunk」的区别**：ETL 阶段把文档切成块写入向量库；`<DOCS>` 里是 **运行时从库里读出来、准备进 Prompt 的那几条正文**，不是给库里每条记录再套一层 POLICY。
+
+常见踩坑：
+
+- **把用户原文拼进 system 的专用区块**（例如 `<USER_QUERY>`）。角色边界一糊，覆盖指令的成功率会高很多。用户输入应只出现在 `HumanMessage`。
+- **以为 DOCS 包的是「数据库里所有 chunk」**。实际只有 **本轮检索命中、且过分数阈值** 的少数几条会进 `<DOCS>`。
 
 ## 四、第三方包：可以试，但别当唯一防线
 
