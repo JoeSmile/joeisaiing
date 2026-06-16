@@ -240,6 +240,49 @@
   }
 }
 
+// Wide markdown tables: scroll inside the table box, not the whole page.
+.single .content,
+.single.summary .content {
+  table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1rem 0;
+
+    thead,
+    tbody,
+    tfoot {
+      display: table;
+      width: max-content;
+      min-width: 100%;
+    }
+
+    th,
+    td {
+      white-space: normal;
+      word-break: break-word;
+      vertical-align: top;
+    }
+  }
+}
+
+// Optional: wrap a single table in <div class="table-scroll">…</div> for extra padding.
+.table-scroll {
+  margin: 1rem 0;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  table {
+    display: table;
+    margin: 0;
+    overflow-x: visible;
+    width: max-content;
+    min-width: 100%;
+  }
+}
+
 @media (max-width: 860px) {
   .topic-grid {
     grid-template-columns: 1fr;
