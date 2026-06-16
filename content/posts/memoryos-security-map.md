@@ -14,8 +14,8 @@ tags:
 draft: false
 ---
 
-> **说明**：本文是 MemoryOS **聊天 / RAG 安全实现对照**，与 [《LLM 聊天与 RAG 安全怎么落地》](/chat-security.html) 互补——那一篇讲方法论，本篇讲**本系统在哪一层、用什么包、防什么、还缺什么**。  
-> **回顾顺序**：第二节总表 → 第三节分层图 → 第四节时序图
+> **说明**：本文是 MemoryOS **聊天 / RAG 安全实现对照**，与 [《LLM 聊天与 RAG 安全怎么落地》](/chat-security.html) 互补——那一篇讲方法论，本篇讲**本系统在哪一层、用什么包、防什么、还缺什么**。文中 **DeSyntax** 指 EntropyShield 包的打碎句法 mask，见第一节末「DeSyntax 是什么」。  
+> **回顾顺序**：第一节总表与 DeSyntax 说明 → 分层图 → 时序图
 
 <!--more-->
 
@@ -30,9 +30,9 @@ draft: false
 | 2. API 网关层 | **HTTP 注入中间件**（[`llm-injection-guard`](https://pypi.org/project/llm-injection-guard/) · `middleware/injection_guard.py` + `llm_injection_guard_adapter.py`） | FastAPI `InjectionGuardMiddleware`；仅 `POST /api/v1/chat/completions` | Body 解析后、路由 handler **之前** | `PromptScanner`（包内规则引擎，非自研正则） | 中英文指令覆盖 / 角色劫持；Base64 / 十六进制 / URL 编码伪装注入；零宽空格、RTL 方向控制隐形字符绕过；伪造 `<system>` 分隔标签；长换行填充稀释系统规则；基础 RAG 埋毒短句载荷 | 服务端第一层统一校验，弥补 BFF 可绕过 | P0 | 纯内存 + 轻量 pip | 多语种语义诱导、字符变体 | `prompt_security`、`llm-guard` | 所有 chat 请求必经；与启发式对照实验 |
 | 2. API 网关层 | **JWT 会话鉴权**（[`PyJWT`](https://pyjwt.readthedocs.io/) · `core/deps.py` `get_current_user`） | 全部受保护路由 `Depends(get_current_user)` | 限流 / 中间件之后 | JWT 校验 + `get_owned_conversation` owner 绑定 | 窃取 Token 越权访问他人对话；未登录调用受保护聊天接口；篡改会话归属读取他人知识库；盗用他人账号批量发起对话 | 隔离用户数据边界 | P0 | 内存解析；会话 PG | 不防注入、DoS | 限流、审计 | 公开 demo 路由单独降级 |
 | 3. 业务预处理层 | **长度 + 启发式清洗**（自研 · `content_validator.py` + `prompt_security.py` + `injection_patterns.py`；编排 `user_input_guard.py`） | `ChatService.prepare_completion_turn` | 进 LangGraph **之前**；`regenerate` 另校验 DB 末条 user | `CHAT_MAX_CONTENT_CHARS` 截断拒绝；EN/ZH override 短语 → 422 `prompt_injection_detected` | 上万字符超长文本淹没顶层 System 规则；中英文标准忽略 / 无视类劫持句式；分段拆分的多层叠加注入；基础全角字母汉字变形攻击；直白诱导泄露配置、系统提示词的恶意提问 | **权威**业务层硬拦截 | P0 | 纯字符串 / 正则 | 变形字符、小语种语义诱导 | `llm-guard`、`llm-injection-guard` | 所有 LLM 对话统一经 `prepare_completion_turn` |
-| 3. 业务预处理层 | **LLM-Guard ML 语义检测**（[`llm-guard`](https://github.com/protectai/llm-guard) · `llm_guard_adapter.py`） | `user_input_guard` 链尾部（启发式之后） | 构造 Prompt 前 | `PromptInjection` + `InvisibleText` scanners | 日韩 / 泰 / 越等小语种注入；同义词改写、转述类诱导越狱；长篇故事叙事式隐性劫持；花体 / 下标 / 数学兼容字符变体绕过正则；无明显关键词纯语义诱导；混合多语言拼接注入载荷 | 补正则固定句式短板 | P3 | 可选 pip + HF/Torch，延迟↑ | 极简单字符注入（上层已拦） | `prompt_security`、DeSyntax | 性能敏感可关；高安全环境再开 |
+| 3. 业务预处理层 | **LLM-Guard ML 语义检测**（[`llm-guard`](https://github.com/protectai/llm-guard) · `llm_guard_adapter.py`） | `user_input_guard` 链尾部（启发式之后） | 构造 Prompt 前 | `PromptInjection` + `InvisibleText` scanners | 日韩 / 泰 / 越等小语种注入；同义词改写、转述类诱导越狱；长篇故事叙事式隐性劫持；花体 / 下标 / 数学兼容字符变体绕过正则；无明显关键词纯语义诱导；混合多语言拼接注入载荷 | 补正则固定句式短板 | P3 | 可选 pip + HF/Torch，延迟↑ | 极简单字符注入（上层已拦） | `prompt_security`、EntropyShield | 性能敏感可关；高安全环境再开 |
 | 4. RAG 全链路层 | **RAG 双点清洗**（自研 · `rag_sanitizer.py`） | ① `knowledge_ingest_service` ETL 入库 ② `graphs/nodes/retrieve.py` 检索后 | 入向量库前；拼进 `<DOCS>` 前 | NFKC、控制字符、劫持短语 neutralize、`RAG_CHUNK_MAX_CHARS` | 知识库文档预埋劫持指令间接注入；文档内嵌零宽隐形字符伪装攻击；超长分片稀释模型安全规则；全角 / Unicode 兼容字符埋毒；文档内伪造系统区块标签污染上下文 | 源头净化 + 漏网二次清洗 | P1 | 纯字符串 | 完整祈使句法埋毒 | `entropyshield`、`content_provenance` | ETL + retrieve **同一模块** |
-| 5. Tools / 外源层 | **来源信任 + DeSyntax**（自研 `content_provenance.py` + [`entropyshield`](https://pypi.org/project/entropyshield/) · `entropyshield_adapter.py`） | `tavily_search.py` snippet 出口；`crawler-*` collection retrieve | 外源数据进 RAG 链**之前** | `worldcup-*` → `TRUSTED_ETL` 跳过；`WEB_SEARCH` / `CRAWLER` → `shield_text_for_provenance` | 爬虫、联网搜索结果预埋埋毒指令；外网不可信来源祈使句劫持；多语种外网文档间接注入；完整动词-宾语命令句法链攻击；低信任数据源拼接绕过内层正则过滤 | 外网不可信；破碎指令句法 | P1 | 可选 pip；纯算法 | 纯语义类**用户**输入攻击 | `rag_sanitizer`、`llm-guard` | 仅内网可信库可关 DeSyntax |
+| 5. Tools / 外源层 | **来源信任 + EntropyShield（DeSyntax）**（自研 `content_provenance.py` + [`entropyshield`](https://pypi.org/project/entropyshield/) · `entropyshield_adapter.py`） | `tavily_search.py` snippet 出口；`crawler-*` collection retrieve | 外源数据进 RAG 链**之前** | `worldcup-*` → `TRUSTED_ETL` 跳过；`WEB_SEARCH` / `CRAWLER` → `shield_text_for_provenance` → `entropyshield.shield` | 爬虫、联网搜索结果预埋埋毒指令；外网不可信来源祈使句劫持；多语种外网文档间接注入；完整动词-宾语命令句法链攻击；低信任数据源拼接绕过内层正则过滤 | 外网不可信；打碎资料内可执行句法（见上文 DeSyntax 说明） | P1 | 可选 pip；纯算法 | 纯语义类**用户**输入攻击 | `rag_sanitizer`、`llm-guard` | 仅内网可信库可关 EntropyShield |
 | 6. LLM 模型层 | **Prompt 分区隔离**（自研模板 · `graphs/prompts/rag_chat.py`、`unified_react.py` · `call_model.py`） | 每次 `call_model` 拼 `SystemMessage` | 调 Ollama / OpenAI 兼容 API 前 | `<POLICY>` + `<DOCS>` + `<TOOL_POLICY>`；用户仅 `HumanMessage` | 用户 / 文档内容伪造 System 分区边界；把 RAG 检索资料、工具返回内容识别为顶层系统指令；多轮对话上下文拼接混淆规则优先级；区块标签篡改引发角色劫持 | 多层漏检时模型侧软兜底 | P0 | 模板拼接 | 不防输出泄露 system | 输出扫描、PII 脱敏 | 分区规则不在前端暴露 |
 | 7. LLM 输出后置层 | **输出扫描 / canary**（规划 · [`llm-guard`](https://github.com/protectai/llm-guard) output scanners + 自研 canary） | `ChatService` finalize 或流式拼接完成点 | 模型生成结束、落库 / SSE 结束前 | Output scanners；敏感形态正则；XSS 转义（FE） | system 泄露、密钥外带、PII、XSS | 只防输入不够 | P2 | 可选 HF 模型 | 不防输入侧注入 | Prompt 分区、`audit_log` | 流式宜分段校验 |
 | 8. 计费管控层 | **Token 日配额**（规划 · `token_usage` 表 + `token_quota_service.py`） | `chat` 流式 finalize | 单次对话完成统计 usage | 按 `user_id` + UTC 日聚合 → `429` `code=42902` | 恶意构造超长篇对话疯狂消耗 token；单人单日无限次长对话拉高云账单；批量生成高上下文会话耗尽算力额度；低频但单轮超大 token 滥用成本 | 限流管次数，配额管 token 总量 | P0 | Redis / PG | 不防注入、越权 | 网关限流、审计 | 测试 / 生产阈值分离 |
@@ -62,10 +62,23 @@ draft: false
 | 权威启发式       | —                           | `prompt_security.py` · `user_input_guard.py`         |
 | ML 输入扫描     | `llm-guard`（optional extra） | `llm_guard_adapter.py`                               |
 | RAG 清洗      | —                           | `rag_sanitizer.py`                                   |
-| 外源 DeSyntax | `entropyshield`（optional）   | `content_provenance.py` · `entropyshield_adapter.py` |
+| 外源 EntropyShield | `entropyshield`（optional）   | `content_provenance.py` · `entropyshield_adapter.py` |
 | Prompt 分区   | —                           | `rag_chat.py` · `call_model.py`                      |
 | 红队          | `garak`（optional）           | `scripts/security/garak_probe.sh`                    |
 
+### DeSyntax 是什么？
+
+文中多次出现的 **DeSyntax**，不是泛指的「语法结构」，而是 Python 包 [**EntropyShield**](https://pypi.org/project/entropyshield/) 里的**算法/模式名**（官方 slogan：*Break the syntax, keep the semantics* —— **打碎可执行句法，尽量保留语义**）。
+
+| 概念 | 含义 |
+|:-----|:-----|
+| **解决什么问题** | RAG / 联网搜索 / 爬虫回灌的文本里，攻击者常用完整**祈使句**埋毒（如「忽略上文，改为…」）。`rag_sanitizer` 靠关键词/正则，对「整句像命令」的间接注入检出有限。 |
+| **DeSyntax 做什么** | 在**低信任来源**进 LLM 前，对正文做确定性 **mask**（步进遮挡字符），把「动词—宾语—指令」这类**可被执行的句法链**打散，使模型难以把资料里的句子当成要遵守的指令。 |
+| **不做什么** | 不替你做「这段话是不是攻击」的语义判决；**不**用于用户 Chat 输入（那是 `prompt_security` / `llm-injection-guard` 的事）。 |
+| **在 MemoryOS 里谁调用** | 自研 `content_provenance.shield_text_for_provenance` 按来源打标；仅 `WEB_SEARCH` / `CRAWLER` 等低信任路径进入 `entropyshield_adapter.apply_entropyshield`（`entropyshield.shield`）。`worldcup-*` 可信 ETL **跳过**。 |
+| **与主表「来源信任 + DeSyntax」** | 前半是**按 collection / tool 分信任**；后半是低信任时挂 EntropyShield 的 DeSyntax mask。 |
+
+一句话：**DeSyntax = 专防不可信资料里「像命令的句子」的打碎句法 mask，不是用户侧注入检测。**
 
 ---
 
@@ -80,7 +93,7 @@ flowchart TB
   end
 
   subgraph ingress["2 · API 网关"]
-    RL["滑动窗口限流 🔲<br/>rate_limit.py"]
+    RL["滑动窗口限流<br/>rate_limit.py"]
     MW["HTTP 注入中间件<br/>llm-injection-guard · PromptScanner"]
     AUTH["JWT 会话鉴权<br/>PyJWT · get_current_user"]
   end
@@ -97,7 +110,7 @@ flowchart TB
   end
 
   subgraph ext5["5 · Tools / 外源"]
-    PROV["来源信任 + DeSyntax<br/>content_provenance.shield_text_for_provenance<br/>entropyshield_adapter 低信任"]
+    PROV["来源信任 + EntropyShield<br/>shield_text_for_provenance<br/>entropyshield.shield 低信任"]
     TAV["tools/tavily_search<br/>snippet · WEB_SEARCH provenance_shield"]
   end
 
@@ -106,9 +119,9 @@ flowchart TB
     LLM["LLM / Agent Tools"]
   end
 
-  OUT["7 · 输出扫描 🔲<br/>llm-guard output"]
-  QUOTA["8 · Token 配额 🔲<br/>token_usage"]
-  AUD["9 · audit_log 🔲"]
+  OUT["7 · 输出扫描<br/>llm-guard output"]
+  QUOTA["8 · Token 配额<br/>token_usage"]
+  AUD["9 · audit_log"]
   CI["10 · CI 离线<br/>Harness · garak"]
 
   BFF --> RL
@@ -130,8 +143,8 @@ flowchart TB
 |:---------|:-----------|:-----|
 | ① `sanitize_chunk` | RAG 双点清洗 | 仅 **ETL 入库**；运行时 Chat 不经过此节点 |
 | ② `sanitize_retrieved_knowledge_chunk` | RAG 双点清洗 | **retrieve 后**进 `<DOCS>` 前；内部会再调 `shield_text_for_provenance` |
-| `content_provenance` + `entropyshield` | 来源信任 + DeSyntax | ② 与 tools 共用；`worldcup-*` 可信源跳过 DeSyntax |
-| `tools/tavily_search` | 来源信任 + DeSyntax | `_format_tavily_response` 对每个 snippet 调 `shield_text_for_provenance(WEB_SEARCH)` |
+| `content_provenance` + `entropyshield` | 来源信任 + EntropyShield（DeSyntax） | ② 与 tools 共用；`worldcup-*` 可信源跳过 mask |
+| `tools/tavily_search` | 来源信任 + EntropyShield（DeSyntax） | `_format_tavily_response` 对每个 snippet 调 `shield_text_for_provenance(WEB_SEARCH)` |
 
 
 
@@ -188,7 +201,7 @@ sequenceDiagram
   G->>R: retrieve_knowledge
   R->>R: KnowledgeSearchService.search
   R->>R: rag_sanitizer.sanitize_retrieved_knowledge_chunk
-  Note over R: 内含 content_provenance.shield_text_for_provenance<br/>低信任时 entropyshield_adapter
+  Note over R: shield_text_for_provenance<br/>低信任时 entropyshield.shield
 
   G->>C: call_model
   C->>C: build_rag_system_message<br/>POLICY + DOCS + TOOL_POLICY
@@ -275,34 +288,32 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
   autonumber
-  participant CI as CI / 开发者
-  participant H as Harness 契约
+  participant CI as CI
+  participant H as Harness
   participant A as FastAPI test client
-  participant G as Garak 红队
+  participant G as Garak
 
   CI->>H: pnpm test:api:harness
-  H->>H: pytest tests/harness/test_chat_security_contract.py
+  H->>H: test_chat_security_contract.py
 
   H->>A: test_chat_football_analysis_passes_injection_filter
-  Note over A: 正例足球问句 → 200 SSE start
-  A-->>H: assert 200 · event=start
+  Note over A: 正例足球问句，期望 200 SSE
+  A-->>H: assert event=start
 
   H->>A: test_chat_rejects_prompt_injection_before_stream
-  Note over A: 反例 ignore previous instructions…
-  A->>A: InjectionGuardMiddleware · PromptScanner
-  Note over A: 或 prepare · assert_user_input_safe
-  A-->>H: assert 42201 prompt_injection_detected<br/>messages 未落库
+  Note over A: 反例注入句，期望 42201
+  A-->>H: assert messages 未落库
 
-  opt GARAK_PROBE_ENABLED=true（默认关 · nightly）
+  opt GARAK_PROBE_ENABLED
     CI->>G: pnpm security:garak
-    G->>G: scripts/security/garak_probe.sh
-    G->>G: garak --config garak_memoryos.yaml<br/>probe_spec: promptinject
-    opt GARAK_TARGET_TYPE=rest
-      G->>A: garak_rest_chat.json · live API
-    else mock（默认）
-      G->>G: 离线 mock target 冒烟
+    G->>G: garak_probe.sh
+    G->>G: garak_memoryos.yaml promptinject
+    alt GARAK_TARGET_TYPE rest
+      G->>A: garak_rest_chat.json live API
+    else mock default
+      G->>G: mock target smoke
     end
-    G-->>CI: 报告落盘 .garak/reports<br/>exit 0 非阻塞
+    Note over G,CI: 报告落盘，exit 0 非阻塞
   end
 ```
 
@@ -328,22 +339,12 @@ sequenceDiagram
 
 ## 五、落地顺序（从总表提炼）
 
-1. **P0 🔲**：限流 + Token 配额 + 审计（滥用三角，与注入正交）
-2. **P1**：RAG 双点 ✅；外源链路生产开 `ENTROPYSHIELD_ENABLED`；Harness 保持 PR 门禁
+1. **P0**：限流 + Token 配额 + 审计（滥用三角，与注入正交）
+2. **P1**：RAG 双点清洗；外源链路 `ENTROPYSHIELD_ENABLED`；Harness PR 门禁
 3. **P2**：BFF 按需开；输出扫描；Garak live API 模板
 4. **P3**：`LLM_GUARD_ENABLED`；IngressProfile / 云 Guard / WAF
 
 ---
-
-## 六、小结
-
-
-| 问题      | 结论                                  |
-| ------- | ----------------------------------- |
-| 信息太分散？  | **以第一节总表为唯一主索引**；图与时序是总表的视图。        |
-| 命名对不上包？ | 总表「防护模块」列已写 **npm/pip 包名 + 仓库路径**。  |
-| 还没做的写哪？ | 模块名标「规划」；见「规划扩展」与第五节落地顺序。 |
-
 
 ## 参考
 

@@ -240,46 +240,81 @@
   }
 }
 
-// Wide markdown tables: scroll inside the table box, not the whole page.
-.single .content,
-.single.summary .content {
-  table {
-    display: block;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 1rem 0;
-
-    thead,
-    tbody,
-    tfoot {
-      display: table;
-      width: max-content;
-      min-width: 100%;
-    }
-
-    th,
-    td {
-      white-space: normal;
-      word-break: break-word;
-      vertical-align: top;
-    }
-  }
-}
-
-// Optional: wrap a single table in <div class="table-scroll">…</div> for extra padding.
-.table-scroll {
-  margin: 1rem 0;
+// Wide markdown tables: wrapper scrolls; inner table grows with content (no squeeze).
+.single .content .table-scroll,
+.single.summary .content .table-scroll {
+  display: block;
+  width: 100%;
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  margin: 1.25rem 0;
+  border: 1px solid var(--global-border-color);
+  border-radius: 8px;
+  background: var(--card-background);
 
   table {
     display: table;
-    margin: 0;
-    overflow-x: visible;
     width: max-content;
     min-width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  th,
+  td {
+    padding: 0.6rem 0.9rem;
+    vertical-align: top;
+    white-space: normal;
+    word-break: break-word;
+    min-width: 9rem;
+  }
+
+  th {
+    white-space: nowrap;
+    font-weight: 600;
+    background: var(--code-background, rgba(0, 0, 0, 0.04));
+  }
+
+  // 首列「流量分层」通常较短
+  th:first-child,
+  td:first-child {
+    min-width: 6.5rem;
+  }
+
+  // 「优先级」等窄列
+  th:nth-child(8),
+  td:nth-child(8) {
+    min-width: 3.5rem;
+    text-align: center;
+  }
+}
+
+// Fallback: tables without render hook (e.g. theme partials)
+.single .content > table,
+.single.summary .content > table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.25rem 0;
+
+  thead,
+  tbody,
+  tfoot {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  th,
+  td {
+    padding: 0.6rem 0.9rem;
+    vertical-align: top;
+    min-width: 9rem;
   }
 }
 
