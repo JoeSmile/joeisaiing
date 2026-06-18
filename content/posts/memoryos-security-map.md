@@ -74,7 +74,6 @@ draft: false
 |:-----|:-----|
 | **解决什么问题** | RAG / 联网搜索 / 爬虫回灌的文本里，攻击者常用完整**祈使句**埋毒（如「忽略上文，改为…」）。`rag_sanitizer` 靠关键词/正则，对「整句像命令」的间接注入检出有限。 |
 | **DeSyntax 做什么** | 在**低信任来源**进 LLM 前，对正文做确定性 **mask**（步进遮挡字符），把「动词—宾语—指令」这类**可被执行的句法链**打散，使模型难以把资料里的句子当成要遵守的指令。 |
-| **不做什么** | 不替你做「这段话是不是攻击」的语义判决；**不**用于用户 Chat 输入（那是 `prompt_security` / `llm-injection-guard` 的事）。 |
 | **在 MemoryOS 里谁调用** | 自研 `content_provenance.shield_text_for_provenance` 按来源打标；仅 `WEB_SEARCH` / `CRAWLER` 等低信任路径进入 `entropyshield_adapter.apply_entropyshield`（`entropyshield.shield`）。`worldcup-*` 可信 ETL **跳过**。 |
 | **与主表「来源信任 + DeSyntax」** | 前半是**按 collection / tool 分信任**；后半是低信任时挂 EntropyShield 的 DeSyntax mask。 |
 
