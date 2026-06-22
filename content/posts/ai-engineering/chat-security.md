@@ -1,6 +1,6 @@
 ---
 title: "LLM 聊天与 RAG 安全怎么落地？纵深防御、快失败与第三方 Guard 选型"
-date: 2026-06-14T10:00:00+08:00
+date: 2026-04-24T10:00:00+08:00
 slug: "chat-security"
 url: "/chat-security.html"
 categories:

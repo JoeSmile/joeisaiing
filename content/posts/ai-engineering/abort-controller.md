@@ -1,6 +1,6 @@
 ---
 title: "AI 聊天 Stop 为什么要「双发 abort」？AbortController + Cancel API 实践总结"
-date: 2026-06-03T10:00:00+08:00
+date: 2026-04-19T10:00:00+08:00
 slug: "abort-controller"
 url: "/abort-controller.html"
 categories:

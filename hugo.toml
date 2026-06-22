@@ -11,7 +11,7 @@ enableRobotsTXT = true
 enableEmoji = true
 
 [outputs]
-home = ["HTML", "RSS", "search"]
+home = ["HTML", "RSS", "search", "archives"]
 
 [permalinks.page]
 posts = "/:slug.html"
@@ -76,6 +76,10 @@ securityLevel = "loose"
 enable = true
 type = "fuse"
 placeholder = "搜索文章标题或内容…"
+[params.archives]
+paginate = 30
+dateFormat = "01-02"
+
 [params.search.fuse]
 isCaseSensitive = false
 minMatchCharLength = 1
@@ -108,10 +112,18 @@ weight = 1
 icon = "fa-solid fa-box-archive"
 
 [[menus.main]]
+identifier = "archives-year"
+name = "按年归档"
+url = "/archives/"
+weight = 2
+[menus.main.params]
+icon = "fa-solid fa-calendar-days"
+
+[[menus.main]]
 identifier = "archives"
 name = "全部文章"
 url = "/posts/"
-weight = 2
+weight = 3
 [menus.main.params]
 icon = "fa-solid fa-archive"
 
@@ -119,7 +131,7 @@ icon = "fa-solid fa-archive"
 identifier = "categories"
 name = "分类"
 url = "/categories/"
-weight = 3
+weight = 4
 [menus.main.params]
 icon = "fa-solid fa-folder-tree"
 
@@ -127,7 +139,7 @@ icon = "fa-solid fa-folder-tree"
 identifier = "tags"
 name = "标签"
 url = "/tags/"
-weight = 4
+weight = 5
 [menus.main.params]
 icon = "fa-solid fa-tags"
 
@@ -135,6 +147,6 @@ icon = "fa-solid fa-tags"
 identifier = "about"
 name = "关于"
 url = "/about/"
-weight = 5
+weight = 6
 [menus.main.params]
 icon = "fa-solid fa-user"

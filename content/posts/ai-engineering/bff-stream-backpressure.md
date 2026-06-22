@@ -1,6 +1,6 @@
 ---
 title: "BFF 背压：为什么 Chat 流式不能「中转站一次扛完」"
-date: 2026-06-19T10:00:00+08:00
+date: 2026-05-09T10:00:00+08:00
 slug: "bff-stream-backpressure"
 url: "/bff-stream-backpressure.html"
 categories:

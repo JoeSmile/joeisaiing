@@ -1,6 +1,6 @@
 ---
 title: "Chat SSE 假死：FastAPI Depends 占死连接池，BFF ReadableStream 灌满队列"
-date: 2026-06-18T10:00:00+08:00
+date: 2026-05-03T10:00:00+08:00
 slug: "shit-fastapi-depend-redis"
 url: "/shit-fastapi-depend-redis.html"
 categories:

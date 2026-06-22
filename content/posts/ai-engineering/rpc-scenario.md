@@ -1,6 +1,6 @@
 ---
 title: "分场景选型：tRPC / gRPC / Connect-RPC 与流式方案怎么落地"
-date: 2026-06-07T10:00:00+08:00
+date: 2026-04-23T10:00:00+08:00
 slug: "rpc-scenario"
 url: "/rpc-scenario.html"
 categories:

@@ -32,7 +32,8 @@ title: ""
   <p class="archive-desc">2018–2019 年前端与 Node.js 学习笔记（Koa、JavaScript、MongoDB 等）已整理为归档，URL 保持不变，可随时查阅。</p>
   <div class="archive-actions">
     <a class="archive-link archive-link--primary" href="/categories/归档/">浏览历史归档</a>
-    <a class="archive-link archive-link--secondary" href="/posts/">按时间查看全部文章</a>
+    <a class="archive-link archive-link--secondary" href="/archives/">按年份浏览</a>
+    <a class="archive-link archive-link--secondary" href="/posts/">全部文章列表</a>
   </div>
 </div>
 

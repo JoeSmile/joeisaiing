@@ -1,6 +1,6 @@
 ---
 title: "gRPC、tRPC、Connect-RPC 怎么选？对比表与两套全栈架构"
-date: 2026-06-06T10:00:00+08:00
+date: 2026-04-21T10:00:00+08:00
 slug: "rpc-grpc-trpc"
 url: "/rpc-grpc-trpc.html"
 categories:

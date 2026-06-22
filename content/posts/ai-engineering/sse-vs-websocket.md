@@ -1,6 +1,6 @@
 ---
 title: "SSE 和 WebSocket 怎么选？为什么 LLM 聊天常用 fetch + ReadableStream"
-date: 2026-06-01T10:00:00+08:00
+date: 2026-04-17T10:00:00+08:00
 slug: "sse-vs-websocket"
 url: "/sse-vs-websocket.html"
 categories:
