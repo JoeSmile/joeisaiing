@@ -1,6 +1,6 @@
 ---
 title: "Self-RAG企业落地实战指南：从原理拆解到可落地的分层架构"
-date: 2026-05-16T16:00:00+08:00
+date: 2026-05-15T16:00:00+08:00
 slug: "self-rag"
 url: "/self-rag.html"
 categories:

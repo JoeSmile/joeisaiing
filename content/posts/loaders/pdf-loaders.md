@@ -1,6 +1,6 @@
 ---
 title: "企业级RAG PDF Loader 全指南：选型对比 + 落地组合方案"
-date: 2026-05-19T12:00:00+08:00
+date: 2026-05-22T12:00:00+08:00
 slug: "pdf-loaders"
 url: "/pdf-loaders.html"
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "RAG落地避坑：PDF复杂内容提取的6大痛点与可落地解决方案"
-date: 2026-05-21T14:00:00+08:00
+date: 2026-05-23T14:00:00+08:00
 slug: "pdf-loader-optimize"
 url: "/pdf-loader-optimize.html"
 categories:

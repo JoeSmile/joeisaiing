@@ -1,6 +1,6 @@
 ---
 title: "LangChain DocumentLoader + LangGraph 文档加载全总结：分类、坑、优化、Graph集成方案"
-date: 2026-05-18T10:00:00+08:00
+date: 2026-05-20T10:00:00+08:00
 slug: "file-loaders"
 url: "/file-loaders.html"
 categories:

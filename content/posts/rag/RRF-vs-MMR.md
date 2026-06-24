@@ -1,6 +1,6 @@
 ---
 title: "RRF vs MMR 全面对比：从核心原理到RAG实战选型"
-date: 2026-05-05T10:00:00+08:00
+date: 2026-05-16T10:00:00+08:00
 slug: "RRF-vs-MMR"
 url: "/RRF-vs-MMR.html"
 categories:
