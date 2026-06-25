@@ -1,6 +1,6 @@
 ---
 title: "欢迎使用 Hugo"
-date: 2026-04-26T10:00:00+08:00
+date: 2026-04-10T10:00:00+08:00
 slug: "hugo-migration"
 url: "/hugo-migration.html"
 categories: ["博客"]
