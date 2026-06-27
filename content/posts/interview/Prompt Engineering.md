@@ -1,6 +1,6 @@
 ---
 title: "Prompt Engineering 企业级落地：从「会说话」到「能交付」"
-date: 2026-06-08T10:00:00+08:00
+date: 2026-06-10T10:00:00+08:00
 slug: "prompt-engineering"
 url: "/prompt-engineering.html"
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "前端面试题：如何设计 ChatGPT 式的 Markdown 流式渲染"
-date: 2026-06-06T10:00:00+08:00
+date: 2026-06-08T10:00:00+08:00
 slug: "how-to-design-markdown-render-in-FE-like-chatgpt"
 url: "/how-to-design-markdown-render-in-FE-like-chatgpt.html"
 categories:
