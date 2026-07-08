@@ -8,7 +8,6 @@ categories:
 tags:
   - "code review"
   - "code security
-  - "Security"
 draft: false
 ---
 
