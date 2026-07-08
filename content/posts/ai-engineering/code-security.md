@@ -1,6 +1,6 @@
 ---
 title: "AI代码工程化保障体系：从规范到上线的完整工具链"
-date: 2026-07-7T10:00:00+08:00
+date: 2026-07-07T10:00:00+08:00
 slug: "code-security"
 url: "/code-security.html"
 categories:

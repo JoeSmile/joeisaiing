@@ -1,6 +1,6 @@
 ---
 title: "Nodejs EventLoop"
-date: 2026-07-3T10:00:00+08:00
+date: 2026-07-03T10:00:00+08:00
 slug: "Nodejs_eventloop"
 url: "/Nodejs_eventloop.html"
 categories:

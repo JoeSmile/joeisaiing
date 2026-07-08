@@ -1,6 +1,6 @@
 ---
 title: "AI代码上线的“安检系统”：从理论到落地的完整工程化指南"
-date: 2026-07-3T10:00:00+08:00
+date: 2026-07-03T10:00:00+08:00
 slug: "vide-coding-on-production"
 url: "/vide-coding-on-production.html"
 categories:
