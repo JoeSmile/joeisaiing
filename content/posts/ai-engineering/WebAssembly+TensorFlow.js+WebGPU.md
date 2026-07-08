@@ -1,6 +1,6 @@
 ---
 title: "前端端侧AI推理终极实践：WebAssembly+TensorFlow.js+WebGPU全链路落地方案"
-date: 2026-07-4T10:00:00+08:00
+date: 2026-07-04T10:00:00+08:00
 slug: "WebAssembly+TensorFlow.js+WebGPU"
 url: "/WebAssembly+TensorFlow.js+WebGPU.html"
 categories:
