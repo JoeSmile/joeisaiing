@@ -11,8 +11,6 @@ tags:
   - "RAG"
   - "记忆系统"
 draft: false
-series: "情感机器人 · 大模型应用笔记"
-series_order: 8
 ---
 
 上下文不只是 messages。本文先串 DeepSeek 级「Query → 回复」全链路，再降维成中小企业可落地的「意图 → 路由 → 拼装 → 生成」五步流水线。

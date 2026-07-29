@@ -10,8 +10,6 @@ tags:
   - "Transformer"
   - "自回归"
 draft: false
-series: "情感机器人 · 大模型应用笔记"
-series_order: 5
 ---
 
 生成一开始只有 `<Start>`。第一个词来自：交叉注意力从 Encoder Memory 抽语义 → 线性投影到词表 → Softmax 取最高概率。

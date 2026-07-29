@@ -11,8 +11,6 @@ tags:
   - "成本控制"
   - "情感机器人"
 draft: false
-series: "情感机器人 · 大模型应用笔记"
-series_order: 9
 ---
 
 意图识别要分层：高频走正则，常规走小模型，低置信才 LLM 兜底。路由再叠加置信度阈值与成本感知，避免动不动就上 RAG。
@@ -43,7 +41,7 @@ series_order: 9
 ```json
 {
   "intent": "memory_query|psychology_qa|emotion_chat|unknown",
-  "confidence": 0.0,
+  "confidence": 0.0 ~ 1.0,
   "source": "regex|small_model|llm",
   "entities": {}
 }

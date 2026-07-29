@@ -11,8 +11,6 @@ tags:
   - "Temperature"
   - "LLM"
 draft: false
-series: "情感机器人 · 大模型应用笔记"
-series_order: 6
 ---
 
 解码策略决定「下一个词怎么从概率分布里挑出来」。面试常考：Top-k 与 Top-p 的本质区别，以及温度 T 与采样的关系。

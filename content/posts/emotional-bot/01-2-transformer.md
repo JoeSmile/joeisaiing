@@ -10,8 +10,6 @@ tags:
   - "Self-Attention"
   - "大模型"
 draft: false
-series: "情感机器人 · 大模型应用笔记"
-series_order: 3
 ---
 
 Transformer 基于**自注意力**、舍弃循环结构；Attention 本质是 Q（新来的）点积 K（历史），得到权重后加权求和 V。

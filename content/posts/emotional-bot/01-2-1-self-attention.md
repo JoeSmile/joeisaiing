@@ -10,8 +10,6 @@ tags:
   - "Transformer"
   - "Multi-Head Attention"
 draft: false
-series: "情感机器人 · 大模型应用笔记"
-series_order: 4
 ---
 
 自注意力让序列里每个词并行与全文算关联度；相关性越高，权重越大——这是 Transformer 捕捉长距离依赖的核心。
